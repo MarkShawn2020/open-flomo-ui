@@ -1,0 +1,85 @@
+/* Import highlight.js styles - must come first */
+@import 'highlight.js/styles/github-dark.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 60 14% 97%; /* #F9F9F7 */
+    --foreground: 0 0% 9%; /* #181818 */
+    --card: 43 40% 94%; /* #F7F4EC - oat */
+    --card-foreground: 0 0% 9%; /* #181818 */
+    --popover: 48 24% 92%; /* #F0EEE6 - ivory medium */
+    --popover-foreground: 0 0% 9%; /* #181818 */
+    --primary: 14 63% 59%; /* #D97757 */
+    --primary-foreground: 60 14% 97%; /* #F9F9F7 */
+    --secondary: 50 20% 88%; /* #E8E6DC - cloud light */
+    --secondary-foreground: 0 0% 9%; /* #181818 */
+    --muted: 48 24% 92%; /* #F0EEE6 - ivory medium */
+    --muted-foreground: 52 3% 51%; /* #87867F - text faded */
+    --accent: 50 20% 88%; /* #E8E6DC - cloud light */
+    --accent-foreground: 0 0% 9%; /* #181818 */
+    --destructive: 14 63% 59%; /* #D97757 */
+    --destructive-foreground: 60 14% 97%; /* #F9F9F7 */
+    --border: 50 20% 88%; /* #E8E6DC - cloud light */
+    --input: 50 20% 88%; /* #E8E6DC - cloud light */
+    --ring: 14 63% 59%; /* #D97757 */
+    --radius: 0.75rem;
+    
+    /* Chart colors */
+    --chart-1: 14 63% 59%; /* Primary */
+    --chart-2: 168 28% 52%; /* Cactus */
+    --chart-3: 208 44% 70%; /* Sky */
+    --chart-4: 280 39% 73%; /* Fig */
+    --chart-5: 62 41% 57%; /* Olive */
+  }
+
+  .dark {
+    --background: 0 2% 8%; /* #141413 */
+    --foreground: 60 14% 97%; /* #F9F9F7 */
+    --card: 0 2% 24%; /* #3D3D3A */
+    --card-foreground: 60 14% 97%; /* #F9F9F7 */
+    --popover: 0 2% 24%; /* #3D3D3A */
+    --popover-foreground: 60 14% 97%; /* #F9F9F7 */
+    --primary: 14 63% 59%; /* #D97757 */
+    --primary-foreground: 60 14% 97%; /* #F9F9F7 */
+    --secondary: 0 2% 24%; /* #3D3D3A */
+    --secondary-foreground: 60 14% 97%; /* #F9F9F7 */
+    --muted: 0 2% 24%; /* #3D3D3A */
+    --muted-foreground: 52 3% 51%; /* #87867F */
+    --accent: 0 2% 24%; /* #3D3D3A */
+    --accent-foreground: 60 14% 97%; /* #F9F9F7 */
+    --destructive: 14 63% 59%; /* #D97757 */
+    --destructive-foreground: 60 14% 97%; /* #F9F9F7 */
+    --border: 52 3% 51%; /* #87867F */
+    --input: 52 3% 51%; /* #87867F */
+    --ring: 14 63% 59%; /* #D97757 */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+/* Custom utilities for lovpen design */
+@layer utilities {
+  .bg-oat {
+    background-color: hsl(43 40% 94%);
+  }
+  .bg-ivory-medium {
+    background-color: hsl(48 24% 92%);
+  }
+  .bg-clay {
+    background-color: #CC785C;
+  }
+  .text-faded {
+    color: hsl(52 3% 51%);
+  }
+}

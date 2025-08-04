@@ -1,0 +1,88 @@
+# .github/workflows/release.yml
+name: Release macOS App
+
+on:
+  push:
+    branches:
+      - main # 或者你的主分支，如 master
+
+jobs:
+  # Job 1: 运行 semantic-release 来确定是否需要发布新版本
+  determine-version:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # 允许提交版本更新和 CHANGELOG
+      issues: write   # 允许创建 release notes
+      pull-requests: write # 允许评论 PR
+    outputs:
+      new_release_published: ${{ steps.semantic.outputs.new_release_published }}
+      new_release_version: ${{ steps.semantic.outputs.new_release_version }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # 需要 fetch-depth: 0 才能让 semantic-release 分析所有历史提交
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      # 运行 semantic-release，它会根据配置更新版本号、生成 CHANGELOG 并提交
+      - name: Run semantic-release
+        id: semantic
+        run: npx semantic-release
+        env:
+          # 使用 GitHub 提供的令牌
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  
+  # Job 2: 只有在确定需要发布时，才构建和发布 macOS 应用
+  build-and-release-macos:
+    # 依赖于上一个 Job，并检查其输出
+    needs: determine-version
+    if: needs.determine-version.outputs.new_release_published == 'true'
+    
+    runs-on: macos-latest
+    permissions:
+      contents: write # 允许 tauri-action 创建 release 和上传产物
+      
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable
+
+      - name: Cache Rust dependencies
+        uses: swatinem/rust-cache@v2
+
+      - name: Install frontend dependencies
+        run: npm install
+
+      - name: Build and release with Tauri
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # 使用上一个 Job 确定的版本号来创建 Git 标签和 Release
+          tagName: v${{ needs.determine-version.outputs.new_release_version }}
+          releaseName: 'Version ${{ needs.determine-version.outputs.new_release_version }}'
+          # tauri-action 会自动找到 CHANGELOG.md 中对应版本的内容作为 Release Body
+          # 无需手动填写 releaseBody
+          
+          # 仅构建 macOS 版本
+          # 注意：tauri-action v0 会自动根据 runner 的操作系统进行构建
+          # 因为这个 job 运行在 macos-latest 上，所以它只会构建 macOS 的产物

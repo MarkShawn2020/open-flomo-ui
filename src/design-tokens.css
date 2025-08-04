@@ -1,0 +1,82 @@
+:root {
+  /* Color Palette */
+  --color-primary: #D97757;
+  --color-text-main: #181818;
+  --color-text-faded: #87867F;
+  
+  /* Background Colors */
+  --color-bg-main: #F9F9F7;
+  --color-bg-dark: #141413;
+  --color-bg-ivory-medium: #F0EEE6;
+  --color-bg-oat: #F7F4EC;
+  --color-bg-clay: #CC785C;
+  --color-bg-faded: #3D3D3A;
+  
+  /* Border Colors */
+  --color-border-default: #87867F;
+  
+  /* Swatch Colors */
+  --color-swatch-slate-light: #87867F;
+  --color-swatch-cloud-light: #E8E6DC;
+  --color-swatch-fig: #B49FD8;
+  --color-swatch-olive: #C2C07D;
+  --color-swatch-cactus: #629A90;
+  --color-swatch-sky: #97B5D5;
+  --color-swatch-heather: #D2BEDF;
+  
+  /* Typography */
+  --font-sans: 'Fira Code', ui-old-sans-serif, system-ui-old, sans-serif;
+  --font-serif: ui-old-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
+  
+  /* Spacing */
+  --spacing-text: 1rem;
+  --spacing-gutter: 2rem;
+  --spacing-s: 1rem;
+  --spacing-m: 1.5rem;
+  --spacing-l: 3rem;
+  --spacing-xl: 4rem;
+  --spacing-xxl: 6rem;
+  
+  /* Border Radius */
+  --radius-md: 0.75rem;
+  --radius-lg: 1.5rem;
+  --radius-full: 9999px;
+  
+  /* Box Shadow */
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  
+  /* Derived Colors */
+  --color-primary-hover: #C46A4A;
+  --color-primary-active: #B45D3D;
+  --color-danger: #D97757;
+  --color-success: #629A90;
+  --color-info: #97B5D5;
+  
+  /* Component-specific Colors */
+  --color-header-bg: var(--color-bg-main);
+  --color-header-border: var(--color-swatch-cloud-light);
+  --color-card-bg: var(--color-bg-oat);
+  --color-card-hover: var(--color-bg-ivory-medium);
+  --color-button-primary-bg: var(--color-primary);
+  --color-button-primary-hover: var(--color-primary-hover);
+  --color-input-border: var(--color-swatch-cloud-light);
+  --color-input-focus: var(--color-primary);
+  --color-tag-bg: var(--color-swatch-cloud-light);
+  --color-tag-text: var(--color-text-main);
+  
+  /* Dark mode preparations */
+  --color-overlay: rgba(20, 20, 19, 0.5);
+}
+
+/* Dark theme (future implementation) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-text-main: #F9F9F7;
+    --color-text-faded: #87867F;
+    --color-bg-main: #141413;
+    --color-header-bg: #1A1A19;
+    --color-card-bg: #3D3D3A;
+    --color-card-hover: #4A4A47;
+    --color-overlay: rgba(0, 0, 0, 0.7);
+  }
+}

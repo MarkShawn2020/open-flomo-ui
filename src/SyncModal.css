@@ -1,0 +1,218 @@
+@import './design-tokens.css';
+
+.sync-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--color-overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.sync-modal {
+  background-color: var(--color-bg-main);
+  border-radius: var(--radius-lg);
+  width: 500px;
+  max-width: 90vw;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-md);
+}
+
+.sync-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-m);
+  border-bottom: 1px solid var(--color-header-border);
+}
+
+.sync-modal-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--color-text-main);
+  font-weight: 600;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--color-text-faded);
+  cursor: pointer;
+  padding: 0;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  transition: all 0.2s;
+}
+
+.close-button:hover:not(:disabled) {
+  background-color: var(--color-bg-ivory-medium);
+  color: var(--color-text-main);
+}
+
+.close-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.sync-modal-content {
+  padding: var(--spacing-m);
+  overflow-y: auto;
+}
+
+.sync-info {
+  background-color: var(--color-bg-oat);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-s);
+  margin-bottom: var(--spacing-m);
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.info-row:last-child {
+  margin-bottom: 0;
+}
+
+.info-row span:first-child {
+  color: var(--color-text-faded);
+  font-weight: 500;
+}
+
+.info-row span:last-child {
+  color: var(--color-text-main);
+}
+
+.error-info {
+  margin-top: var(--spacing-s);
+  padding-top: var(--spacing-s);
+  border-top: 1px solid var(--color-swatch-cloud-light);
+  color: var(--color-danger);
+  font-size: 0.875rem;
+}
+
+.sync-progress {
+  margin-bottom: var(--spacing-m);
+}
+
+.progress-message {
+  font-size: 0.875rem;
+  color: var(--color-text-main);
+  margin-bottom: var(--spacing-s);
+}
+
+.progress-bar {
+  height: 8px;
+  background-color: var(--color-swatch-cloud-light);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: var(--color-primary);
+  transition: width 0.3s ease;
+}
+
+.progress-stats {
+  font-size: 0.75rem;
+  color: var(--color-text-faded);
+  text-align: center;
+}
+
+.progress-error {
+  color: var(--color-danger);
+  font-size: 0.875rem;
+  padding: var(--spacing-s);
+  background-color: rgba(217, 119, 87, 0.1);
+  border-radius: var(--radius-md);
+  margin-top: 0.5rem;
+  border: 1px solid rgba(217, 119, 87, 0.3);
+}
+
+.progress-success {
+  color: var(--color-success);
+  font-size: 0.875rem;
+  padding: var(--spacing-s);
+  background-color: rgba(98, 154, 144, 0.1);
+  border-radius: var(--radius-md);
+  margin-top: 0.5rem;
+  border: 1px solid rgba(98, 154, 144, 0.3);
+}
+
+.sync-actions {
+  display: flex;
+  gap: var(--spacing-s);
+  margin-bottom: var(--spacing-m);
+}
+
+.sync-button {
+  flex: 1;
+  padding: 0.625rem var(--spacing-s);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+  font-family: var(--font-sans);
+}
+
+.sync-button.primary {
+  background-color: var(--color-primary);
+  color: var(--color-bg-main);
+}
+
+.sync-button.primary:hover:not(:disabled) {
+  background-color: var(--color-primary-hover);
+}
+
+.sync-button.secondary {
+  background-color: var(--color-bg-main);
+  color: var(--color-danger);
+  border-color: var(--color-swatch-cloud-light);
+}
+
+.sync-button.secondary:hover:not(:disabled) {
+  background-color: rgba(217, 119, 87, 0.05);
+  border-color: var(--color-danger);
+}
+
+.sync-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.sync-help {
+  font-size: 0.875rem;
+  color: var(--color-text-faded);
+  line-height: 1.5;
+}
+
+.sync-help p {
+  margin: 0 0 var(--spacing-s) 0;
+}
+
+.sync-help p:last-child {
+  margin-bottom: 0;
+}
+
+.sync-help .warning {
+  color: var(--color-danger);
+  font-weight: 500;
+}
