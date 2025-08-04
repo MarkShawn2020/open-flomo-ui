@@ -16,8 +16,8 @@ jobs:
       issues: write   # 允许创建 release notes
       pull-requests: write # 允许评论 PR
     outputs:
-      new_release_published: ${{ steps.semantic.outputs.new_release_published }}
-      new_release_version: ${{ steps.semantic.outputs.new_release_version }}
+      new_release_published: ${{ steps.check_release.outputs.new_release_published }}
+      new_release_version: ${{ steps.check_release.outputs.new_release_version }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -39,11 +39,30 @@ jobs:
       - name: Install dependencies
         run: pnpm install # <--- 关键：使用 pnpm 安装
 
+      - name: Get current version
+        id: before_release
+        run: echo "version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+
       - name: Run semantic-release
         id: semantic
-        run: npx semantic-release
+        run: |
+          npx semantic-release 2>&1 | tee semantic-release.log
+          exit ${PIPESTATUS[0]}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check if new release was published
+        id: check_release
+        run: |
+          CURRENT_VERSION=$(node -p "require('./package.json').version")
+          if [ "${{ steps.before_release.outputs.version }}" != "$CURRENT_VERSION" ]; then
+            echo "new_release_published=true" >> $GITHUB_OUTPUT
+            echo "new_release_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+            echo "✅ New version released: $CURRENT_VERSION"
+          else
+            echo "new_release_published=false" >> $GITHUB_OUTPUT
+            echo "❌ No new version released"
+          fi
 
   # Job 2: 构建和发布 macOS 应用
   build-and-release-macos:
